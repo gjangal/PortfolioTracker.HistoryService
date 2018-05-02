@@ -18,7 +18,7 @@ namespace PortfolioTracker.HistoryService.Service
                 c.RunAsLocalSystem();
                 c.SetServiceName("PortfolioTrackerHistoryService");
                 c.SetDisplayName("PortfolioTrackerHistoryService");
-                c.SetDescription(".NET Service to keep tracof daily portfolio value");
+                c.SetDescription(".NET Service to keep track of daily portfolio value");
             });
         }
     }

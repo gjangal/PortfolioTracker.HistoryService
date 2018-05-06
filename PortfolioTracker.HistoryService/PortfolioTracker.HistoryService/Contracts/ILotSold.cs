@@ -11,5 +11,8 @@ namespace PortfolioTracker.HistoryService.Contracts
         int PortfolioId { get; set; }
         int LotId { get; set; }
         DateTime Date { get; set; }
+        int Qty { get; set; }
+        decimal Amount { get; set; }
+        string Ric { get; set; }
     }
 }

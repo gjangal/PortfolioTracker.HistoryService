@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PortfolioTracker.HistoryService.Contracts
+namespace PortfolioTracker.Contracts.Events
 {
-    interface ICashDeposited
+    public interface ICashDeposited
     {
         int PortfolioId { get; set; }
         decimal Amount { get; set; }

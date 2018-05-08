@@ -2,7 +2,7 @@
 {
     public interface IDbEntity
     {
-        int Id { get; set; }
+        int Id { get;}
     }
 
 }

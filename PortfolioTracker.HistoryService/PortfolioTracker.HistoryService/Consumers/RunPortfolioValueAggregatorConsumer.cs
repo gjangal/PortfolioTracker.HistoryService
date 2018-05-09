@@ -10,13 +10,16 @@ namespace PortfolioTracker.HistoryService.Consumers
     {
         private readonly IPortfolioRepository portfolioRepository;
         private readonly IMarketValueRepository marketValueRepository;
+        private readonly ICashRepository cashRepository;
 
         public RunPortfolioValueAggregatorConsumer(
             IPortfolioRepository portfolioRepository, 
-            IMarketValueRepository marketValueRepository)
+            IMarketValueRepository marketValueRepository, 
+            ICashRepository cashRepository)
         {
             this.portfolioRepository = portfolioRepository;
             this.marketValueRepository = marketValueRepository;
+            this.cashRepository = cashRepository;
         }
 
         public async Task Consume(ConsumeContext<IRunPortfolioValueAggregator> context)
@@ -33,7 +36,7 @@ namespace PortfolioTracker.HistoryService.Consumers
                         var marketValue = new MarketValue()
                         {
                             PortfolioId = portfolio.Id,
-                            MktValue = portfolio.MarketValue(startDate),
+                            MktValue = portfolio.MarketValue(startDate) + (await cashRepository.GetCashValue(startDate, portfolio.Id)).Amount,
                             Date = startDate
                         };
 

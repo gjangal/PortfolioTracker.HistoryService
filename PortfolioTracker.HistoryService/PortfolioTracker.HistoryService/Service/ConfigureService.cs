@@ -1,4 +1,6 @@
-﻿using Topshelf;
+﻿using Autofac;
+using PortfolioTracker.HistoryService.Repository;
+using Topshelf;
 
 namespace PortfolioTracker.HistoryService.Service
 {
@@ -6,6 +8,11 @@ namespace PortfolioTracker.HistoryService.Service
     {
         internal static void Configure()
         {
+            var containerbuilder = new ContainerBuilder();
+            containerbuilder.RegisterType<CashRepository>().As<ICashRepository>();
+            containerbuilder.RegisterType<PortfolioRepository>().As<IPortfolioRepository>();
+            containerbuilder.RegisterType<MarketValueRepository>().As<IMarketValueRepository>();
+
             HostFactory.Run((c) =>
             {
                 c.Service<HistoryService>(service =>

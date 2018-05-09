@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Consumers\RunPortfolioValueAggregatorConsumer.cs" />
+    <Compile Include="Repository\Cash.cs" />
     <Compile Include="Contracts\ICashDeposited.cs" />
     <Compile Include="Contracts\ICashWithDrawn.cs" />
     <Compile Include="Contracts\ILotAdded.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Contracts\PortfolioValueRunMode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\CashRepository.cs" />
     <Compile Include="Repository\IDbEntity.cs" />
     <Compile Include="Repository\ILot.cs" />
     <Compile Include="Repository\MarketValue.cs" />

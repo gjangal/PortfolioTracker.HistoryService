@@ -27,10 +27,16 @@ namespace PortfolioTracker.HistoryService.Consumers
 
                     var startDate = context.Message.Date;
                     var portfolios = await portfolioRepository.GetListAsync();
+
                     foreach (var portfolio in portfolios)
                     {
-                        // Calculate the market value of each portfolio
-                        var marketValue = new MarketValue() { PortfolioId = portfolio.Id, MktValue = (portfolio.Cash + portfolio.Holdings.Sum(h => h.Qty)) };
+                        var marketValue = new MarketValue()
+                        {
+                            PortfolioId = portfolio.Id,
+                            MktValue = portfolio.MarketValue(startDate),
+                            Date = startDate
+                        };
+
                         await marketValueRepository.InsertAsync(marketValue);
                     }
 

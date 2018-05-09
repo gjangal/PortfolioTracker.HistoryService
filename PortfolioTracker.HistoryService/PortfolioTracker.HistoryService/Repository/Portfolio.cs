@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PortfolioTracker.HistoryService.Repository
 {
@@ -11,6 +13,11 @@ namespace PortfolioTracker.HistoryService.Repository
         public float Cash { get; set; }
 
         public int Id { get; set; }
+
+        public float MarketValue(DateTime asOf)
+        {
+            return Holdings.Where(l => l.Date <= asOf).Sum(l => l.Qty);
+        }
     }
 
 }

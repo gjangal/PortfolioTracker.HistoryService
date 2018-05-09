@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace PortfolioTracker.HistoryService.Repository
 {
@@ -7,6 +8,8 @@ namespace PortfolioTracker.HistoryService.Repository
         string Name { get; set; }
         IEnumerable<Lot> Holdings { get; }
         float Cash { get;}
+
+        float MarketValue(DateTime asOf);
     }
 
 }

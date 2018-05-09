@@ -18,11 +18,7 @@ namespace PortfolioTracker.HistoryService.Repository
         {
             connectionString = ConfigurationManager.AppSettings["HistoryDb"].ToString();
         }
-
-        public bool Delete(int Id)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public Task<bool> DeleteAsync(int Id)
         {

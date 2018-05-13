@@ -39,7 +39,10 @@ namespace PortfolioTracker.HistoryService.Repository
 
                 var lookup = new Dictionary<int, Portfolio>();
 
-                var sql = $"SELECT p.*, l.* from Portfolio p INNER JOIN Lot l on l.PortfolioId = p.Id";
+                var sql = $"SELECT p.* , l.* from Portfolio p INNER JOIN Lot l on l.PortfolioId = p.Id";
+                var sqlTest = "SELECT Id, Name from dbo.Portfolio";
+
+                var portfolios = await connection.QueryAsync<Portfolio>(sqlTest);
 
                 await connection.QueryAsync<Portfolio, Lot, Portfolio>(sql, (p, l) =>
                 {

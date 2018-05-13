@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AF3BC42C-C01D-432D-A534-F679B5B5B0CA}</ProjectGuid>
+    <ProjectGuid>{C6CD8AEE-5C91-47F9-A0BB-B1FBBFEEE080}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>PortfolioTracker.HistoryService</RootNamespace>
-    <AssemblyName>PortfolioTracker.HistoryService</AssemblyName>
+    <RootNamespace>TestPublisher</RootNamespace>
+    <AssemblyName>TestPublisher</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,12 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.8.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.8.0\lib\net45\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="Dapper, Version=1.50.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dapper.1.50.4\lib\net451\Dapper.dll</HintPath>
-    </Reference>
     <Reference Include="GreenPipes, Version=2.1.0.106, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
       <HintPath>..\packages\GreenPipes.2.1.0\lib\net452\GreenPipes.dll</HintPath>
     </Reference>
@@ -47,11 +41,11 @@
     <Reference Include="MassTransit, Version=5.1.0.1516, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
       <HintPath>..\packages\MassTransit.5.1.0\lib\net452\MassTransit.dll</HintPath>
     </Reference>
-    <Reference Include="MassTransit.Log4NetIntegration, Version=5.0.2.1503, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
-      <HintPath>..\packages\MassTransit.Log4Net.5.0.2\lib\net452\MassTransit.Log4NetIntegration.dll</HintPath>
+    <Reference Include="MassTransit.Log4NetIntegration, Version=5.1.0.1516, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\MassTransit.Log4Net.5.1.0\lib\net452\MassTransit.Log4NetIntegration.dll</HintPath>
     </Reference>
-    <Reference Include="MassTransit.RabbitMqTransport, Version=5.0.2.1503, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
-      <HintPath>..\packages\MassTransit.RabbitMQ.5.0.2\lib\net452\MassTransit.RabbitMqTransport.dll</HintPath>
+    <Reference Include="MassTransit.RabbitMqTransport, Version=5.1.0.1516, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\MassTransit.RabbitMQ.5.1.0\lib\net452\MassTransit.RabbitMqTransport.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Diagnostics.Tracing.EventSource, Version=1.1.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.28\lib\net46\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
@@ -69,7 +63,6 @@
       <HintPath>..\packages\RabbitMQ.Client.5.0.1\lib\net451\RabbitMQ.Client.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -81,40 +74,21 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="Topshelf, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
-      <HintPath>..\packages\Topshelf.4.0.4\lib\net452\Topshelf.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Consumers\RunPortfolioValueAggregatorConsumer.cs" />
-    <Compile Include="Repository\Cash.cs" />
-    <Compile Include="Contracts\ICashDeposited.cs" />
-    <Compile Include="Contracts\ICashWithDrawn.cs" />
-    <Compile Include="Contracts\ILotAdded.cs" />
-    <Compile Include="Contracts\ILotSold.cs" />
-    <Compile Include="Contracts\IRunPortfolioValueAggregator.cs" />
-    <Compile Include="Contracts\PortfolioValueRunMode.cs" />
+    <Compile Include="BusInitializer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\CashRepository.cs" />
-    <Compile Include="Repository\IDbEntity.cs" />
-    <Compile Include="Repository\ILot.cs" />
-    <Compile Include="Repository\MarketValue.cs" />
-    <Compile Include="Repository\IPortfolio.cs" />
-    <Compile Include="Repository\IRepository.cs" />
-    <Compile Include="Repository\Lot.cs" />
-    <Compile Include="Repository\MarketValueRepository.cs" />
-    <Compile Include="Repository\Portfolio.cs" />
-    <Compile Include="Repository\PortfolioRepository.cs" />
-    <Compile Include="Service\ConfigureService.cs" />
-    <Compile Include="Service\HistoryService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\PortfolioTracker.HistoryService\PortfolioTracker.HistoryService.csproj">
+      <Project>{af3bc42c-c01d-432d-a534-f679b5b5b0ca}</Project>
+      <Name>PortfolioTracker.HistoryService</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

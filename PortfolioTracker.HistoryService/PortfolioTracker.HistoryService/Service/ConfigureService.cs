@@ -1,4 +1,7 @@
 ﻿using Autofac;
+using MassTransit;
+using PortfolioTracker.Contracts.Events;
+using PortfolioTracker.HistoryService.Consumers;
 using PortfolioTracker.HistoryService.Repository;
 using Topshelf;
 
@@ -12,12 +15,14 @@ namespace PortfolioTracker.HistoryService.Service
             containerbuilder.RegisterType<CashRepository>().As<ICashRepository>();
             containerbuilder.RegisterType<PortfolioRepository>().As<IPortfolioRepository>();
             containerbuilder.RegisterType<MarketValueRepository>().As<IMarketValueRepository>();
+            containerbuilder.RegisterType<RunPortfolioValueAggregatorConsumer>().AsSelf();
+            var container = containerbuilder.Build();
 
             HostFactory.Run((c) =>
             {
                 c.Service<HistoryService>(service =>
                 {
-                    service.ConstructUsing(s => new HistoryService());
+                    service.ConstructUsing(s => new HistoryService(container));
                     service.WhenStarted((s) => s.Start());
                     service.WhenStopped((s) => s.Stop());
                 });

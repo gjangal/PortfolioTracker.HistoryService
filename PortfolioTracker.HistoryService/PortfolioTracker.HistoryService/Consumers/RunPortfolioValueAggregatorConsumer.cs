@@ -12,6 +12,10 @@ namespace PortfolioTracker.HistoryService.Consumers
         private readonly IMarketValueRepository marketValueRepository;
         private readonly ICashRepository cashRepository;
 
+        public RunPortfolioValueAggregatorConsumer()
+        {
+
+        }
         public RunPortfolioValueAggregatorConsumer(
             IPortfolioRepository portfolioRepository, 
             IMarketValueRepository marketValueRepository, 
@@ -31,6 +35,8 @@ namespace PortfolioTracker.HistoryService.Consumers
                     var startDate = context.Message.Date;
                     var portfolios = await portfolioRepository.GetListAsync();
 
+                    //var cashValues = (await cashRepository.GetCashValueForDate(startDate)).ToLookup(); 
+
                     foreach (var portfolio in portfolios)
                     {
                         var marketValue = new MarketValue()
@@ -45,6 +51,7 @@ namespace PortfolioTracker.HistoryService.Consumers
 
                     return ;
                 case PortfolioValueRunMode.SpecificPortfolios:
+
                     return ;
                 default:
                     return;

@@ -57,8 +57,8 @@ namespace PortfolioTracker.HistoryService.Repository
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                var sql = $"INSERT [dbo].[MarketValue] ([Id], [PortfolioId],[MarketValue]) VALUES (@Id, @PortfolioId, @MktValue)";
-                int rows = await connection.ExecuteAsync(sql, new { lot.Id, lot.PortfolioId, lot.MktValue });
+                var sql = $"INSERT [dbo].[PortfolioValue] ([Id], [PortfolioId],[Value], [AsOf]) VALUES (@Id, @PortfolioId, @MktValue, @Date )";
+                int rows = await connection.ExecuteAsync(sql, new { lot.Id, lot.PortfolioId, lot.MktValue, lot.Date });
 
                 if (rows > 0)
                 {

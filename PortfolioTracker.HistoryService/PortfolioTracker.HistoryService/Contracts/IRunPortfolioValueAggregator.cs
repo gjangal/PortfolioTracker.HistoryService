@@ -8,8 +8,8 @@ namespace PortfolioTracker.Contracts.Events
 {
     public interface IRunPortfolioValueAggregator
     {
-        PortfolioValueRunMode Mode { get; set; }
-        DateTime Date { get; set; }
-        IEnumerable<int> PortfolioIds { get; set; }
+        PortfolioValueRunMode Mode { get; }
+        DateTime Date { get; }
+        IEnumerable<int> PortfolioIds { get; }
     }
 }

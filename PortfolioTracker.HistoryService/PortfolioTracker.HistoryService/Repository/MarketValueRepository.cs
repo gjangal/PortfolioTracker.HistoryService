@@ -20,9 +20,22 @@ namespace PortfolioTracker.HistoryService.Repository
         }
         
 
-        public Task<bool> DeleteAsync(int Id)
+        public async Task<bool> DeleteAsync(int Id)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(connectionString))
+            {
+
+                connection.Open();
+                var sql = $"DELETE FROM dbo.PortfolioValue WHERE Id={Id}";
+                int rows =  await connection.ExecuteAsync(sql);
+
+                if (rows > 0)
+                {
+                    return true;
+                }
+
+                return false;
+            }
         }
         
         public async Task<IEnumerable<MarketValue>> GetListAsync()
@@ -57,8 +70,19 @@ namespace PortfolioTracker.HistoryService.Repository
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                var sql = $"INSERT [dbo].[PortfolioValue] ([Id], [PortfolioId],[Value], [AsOf]) VALUES (@Id, @PortfolioId, @MktValue, @Date )";
-                int rows = await connection.ExecuteAsync(sql, new { lot.Id, lot.PortfolioId, lot.MktValue, lot.Date });
+
+                // Check if exists else update
+                var selectSql = $@"SELECT count(*) from [dbo].[PortfolioValue] WHERE PortfolioId={lot.PortfolioId} and AsOf='{lot.Date}'";
+
+                int rows = (int)(await connection.ExecuteScalarAsync(selectSql));
+
+                if(rows > 0)
+                {
+                    return await Update(lot, connection);
+                }
+
+                var sql = $"INSERT [dbo].[PortfolioValue] ([PortfolioId],[Value], [AsOf]) VALUES (@PortfolioId, @MktValue, @Date )";
+                rows = await connection.ExecuteAsync(sql, new { lot.Id, lot.PortfolioId, lot.MktValue, lot.Date });
 
                 if (rows > 0)
                 {
@@ -69,9 +93,28 @@ namespace PortfolioTracker.HistoryService.Repository
             }
         }
 
-        public Task<bool> UpdateAysnc(MarketValue lot)
+        public async Task<bool> UpdateAysnc(MarketValue lot)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                return await Update(lot, connection);
+            }
+        }
+
+        private static async Task<bool> Update(MarketValue lot, SqlConnection connection)
+        {
+            var sql = $@"UPDATE [dbo].[PortfolioValue] 
+                                SET [Value]={lot.MktValue} 
+                            WHERE PortfolioId={lot.PortfolioId} and AsOf='{lot.Date}'";
+            int rows = await connection.ExecuteAsync(sql, new { lot.Id, lot.PortfolioId, lot.MktValue, lot.Date });
+
+            if (rows > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

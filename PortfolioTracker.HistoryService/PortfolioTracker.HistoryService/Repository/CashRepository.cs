@@ -47,7 +47,7 @@ namespace PortfolioTracker.HistoryService.Repository
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                var sql = $"SELECT Id, PortfolioId, Cash, Date from dbo.Cash where Date={asof}";
+                var sql = $"SELECT Id, PortfolioId, Amount, Date from dbo.Cash where Date='{asof}'";
                 return await connection.QueryAsync<Cash>(sql);
             }
         }

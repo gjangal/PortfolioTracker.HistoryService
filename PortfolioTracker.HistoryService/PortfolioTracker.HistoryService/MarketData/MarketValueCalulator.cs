@@ -21,7 +21,9 @@ namespace PortfolioTracker.HistoryService.MarketData
 
             foreach (var holding in holdings)
             {
-                cumMktValue += await marketDataClient.GetMarketPrice(holding.Ric, asOf) * holding.Qty; 
+                var ticker = holding.Ric.Split('.');
+                var price = await marketDataClient.GetMarketPriceAsync(ticker[0], asOf);
+                cumMktValue += (float)(price) * holding.Qty; 
             }
 
             return new MarketValue()

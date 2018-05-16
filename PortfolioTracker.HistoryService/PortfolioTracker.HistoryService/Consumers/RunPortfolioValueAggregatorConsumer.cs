@@ -50,7 +50,6 @@ namespace PortfolioTracker.HistoryService.Consumers
                     return ;
 
                 case PortfolioValueRunMode.SpecificPortfolios:
-
                     startDate = context.Message.Date;
                     cashValues = (await cashRepository.GetCashValueForDate(startDate)).ToLookup(c => Tuple.Create(c.PortfolioId, c.Date));
 

@@ -87,6 +87,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Consumers\RunPortfolioValueAggregatorConsumer.cs" />
+    <Compile Include="MarketData\IMarketDataClient.cs" />
+    <Compile Include="MarketData\IMarketValueCalculator.cs" />
+    <Compile Include="MarketData\MarketValueCalulator.cs" />
+    <Compile Include="MarketData\Quote.cs" />
     <Compile Include="Repository\Cash.cs" />
     <Compile Include="Contracts\ICashDeposited.cs" />
     <Compile Include="Contracts\ICashWithDrawn.cs" />

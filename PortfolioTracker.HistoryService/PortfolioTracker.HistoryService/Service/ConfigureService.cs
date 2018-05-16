@@ -2,6 +2,7 @@
 using MassTransit;
 using PortfolioTracker.Contracts.Events;
 using PortfolioTracker.HistoryService.Consumers;
+using PortfolioTracker.HistoryService.MarketData;
 using PortfolioTracker.HistoryService.Repository;
 using Topshelf;
 
@@ -15,7 +16,12 @@ namespace PortfolioTracker.HistoryService.Service
             containerbuilder.RegisterType<CashRepository>().As<ICashRepository>();
             containerbuilder.RegisterType<PortfolioRepository>().As<IPortfolioRepository>();
             containerbuilder.RegisterType<MarketValueRepository>().As<IMarketValueRepository>();
+            containerbuilder.RegisterType<MarketValueCalulator>().As<IMarketValueCalculator>();
+            containerbuilder.RegisterType<MarketDataClient>().As<IMarketDataClient>();
+            
             containerbuilder.RegisterType<RunPortfolioValueAggregatorConsumer>().AsSelf();
+            
+            
             var container = containerbuilder.Build();
 
             HostFactory.Run((c) =>

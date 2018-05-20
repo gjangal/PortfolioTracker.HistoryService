@@ -35,23 +35,11 @@ namespace PortfolioTracker.HistoryService.Consumers
         {
             switch (context.Message.Mode)
             {
-                case PortfolioValueRunMode.AllPorfolios:
-
-                    var startDate = context.Message.Date;
-                    var portfolios = await portfolioRepository.GetListAsync();
-
-                    var cashValues = (await cashRepository.GetCashValueForDate(startDate)).ToLookup(c=> Tuple.Create(c.PortfolioId, c.Date)); 
-
-                    foreach (var portfolio in portfolios)
-                    {
-                        await InsertMarketValue(startDate, cashValues, portfolio);
-                    }
-
-                    return ;
-
+                
                 case PortfolioValueRunMode.SpecificPortfolios:
-                    startDate = context.Message.Date;
-                    cashValues = (await cashRepository.GetCashValueForDate(startDate)).ToLookup(c => Tuple.Create(c.PortfolioId, c.Date));
+                    var startDate = context.Message.Date;
+
+                    var cashValues = (await cashRepository.GetCashValueForDate(startDate)).ToLookup(c => Tuple.Create(c.PortfolioId, c.Date));
 
                     foreach (var portfolioId in context.Message.PortfolioIds)
                     {

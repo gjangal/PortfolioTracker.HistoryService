@@ -82,7 +82,7 @@ namespace PortfolioTracker.HistoryService.Repository
                 }
 
                 var sql = $"INSERT [dbo].[PortfolioValue] ([PortfolioId],[Value], [AsOf]) VALUES (@PortfolioId, @MktValue, @Date )";
-                rows = await connection.ExecuteAsync(sql, new { lot.Id, lot.PortfolioId, lot.MktValue, lot.Date });
+                rows = await connection.ExecuteAsync(sql, new { lot.PortfolioId, lot.MktValue, lot.Date });
 
                 if (rows > 0)
                 {
@@ -107,7 +107,7 @@ namespace PortfolioTracker.HistoryService.Repository
             var sql = $@"UPDATE [dbo].[PortfolioValue] 
                                 SET [Value]={lot.MktValue} 
                             WHERE PortfolioId={lot.PortfolioId} and AsOf='{lot.Date}'";
-            int rows = await connection.ExecuteAsync(sql, new { lot.Id, lot.PortfolioId, lot.MktValue, lot.Date });
+            int rows = await connection.ExecuteAsync(sql, new { lot.PortfolioId, lot.MktValue, lot.Date });
 
             if (rows > 0)
             {

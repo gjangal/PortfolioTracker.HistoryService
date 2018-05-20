@@ -34,8 +34,8 @@ namespace TestPublisher
 
     public class RunPortfolioValueAggregator : IRunPortfolioValueAggregator
     {
-        public PortfolioValueRunMode Mode { get =>  PortfolioValueRunMode.AllPorfolios; }
+        public PortfolioValueRunMode Mode { get =>  PortfolioValueRunMode.SpecificPortfolios; }
         public DateTime Date { get => DateTime.Today; }
-        public IEnumerable<int> PortfolioIds { get => null; }
+        public IEnumerable<int> PortfolioIds { get => new[] { 1, 2 }; }
     }
 }

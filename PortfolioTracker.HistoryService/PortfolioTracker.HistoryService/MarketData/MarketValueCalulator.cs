@@ -29,7 +29,7 @@ namespace PortfolioTracker.HistoryService.MarketData
             return new MarketValue()
             {
                 Date = asOf,
-                MktValue = cumMktValue + cash.Amount,
+                MktValue = cumMktValue + (cash == null ? 0: cash.Amount),
                 PortfolioId = portfolio.Id
             };
         }

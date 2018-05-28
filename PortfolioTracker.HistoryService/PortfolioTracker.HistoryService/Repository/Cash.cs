@@ -1,4 +1,5 @@
-﻿using PortfolioTracker.HistoryService.Repository;
+﻿using Newtonsoft.Json;
+using PortfolioTracker.HistoryService.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +17,16 @@ namespace PortfolioTracker.HistoryService.Repository
 
     public class Cash : ICash
     {
+        [JsonProperty("date")]
         public DateTime Date { get; set; }
 
+        [JsonProperty("portfolioId")]
         public int PortfolioId { get; set; }
 
+        [JsonProperty("amount")]
         public float Amount { get; set; }
 
+        [JsonProperty("id")]
         public int Id { get; set; }
     }
 }

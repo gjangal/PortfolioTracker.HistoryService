@@ -1,9 +1,11 @@
 ﻿using Autofac;
+using AutofacSerilogIntegration;
 using MassTransit;
 using PortfolioTracker.Contracts.Events;
 using PortfolioTracker.HistoryService.Consumers;
 using PortfolioTracker.HistoryService.MarketData;
 using PortfolioTracker.HistoryService.Repository;
+using Serilog;
 using Topshelf;
 
 namespace PortfolioTracker.HistoryService.Service
@@ -12,6 +14,9 @@ namespace PortfolioTracker.HistoryService.Service
     {
         internal static void Configure()
         {
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Console().CreateLogger();
+
             var containerbuilder = new ContainerBuilder();
             containerbuilder.RegisterType<CashRepository>().As<ICashRepository>();
             containerbuilder.RegisterType<PortfolioRepository>().As<IPortfolioRepository>();
@@ -20,8 +25,8 @@ namespace PortfolioTracker.HistoryService.Service
             containerbuilder.RegisterType<MarketDataClient>().As<IMarketDataClient>();
             
             containerbuilder.RegisterType<RunPortfolioValueAggregatorConsumer>().AsSelf();
-            
-            
+            containerbuilder.RegisterLogger();
+
             var container = containerbuilder.Build();
 
             HostFactory.Run((c) =>

@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -19,10 +20,12 @@ namespace PortfolioTracker.HistoryService.Repository
     public class CashRepository : ICashRepository
     {
         private readonly string connectionString;
+        private readonly ILogger logger;
 
-        public CashRepository()
+        public CashRepository(ILogger logger)
         {
             connectionString = ConfigurationManager.AppSettings["HistoryDb"].ToString();
+            this.logger = logger;
         }
 
         public Task<bool> DeleteAsync(int Id)

@@ -9,6 +9,6 @@ namespace PortfolioTracker.HistoryService.MarketData
 {
     public interface IMarketValueCalculator
     {
-        Task<MarketValue> Calculate(IPortfolio portfolio, ICash cash, DateTime asOf);
+        Task<MarketValue> Calculate(int Id, DateTime asOf);
     }
 }

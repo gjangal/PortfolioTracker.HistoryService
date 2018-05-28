@@ -2,8 +2,7 @@
 using PortfolioTracker.Contracts.Events;
 using PortfolioTracker.HistoryService.MarketData;
 using PortfolioTracker.HistoryService.Repository;
-using System;
-using System.Linq;
+using Serilog;
 using System.Threading.Tasks;
 
 namespace PortfolioTracker.HistoryService.Consumers
@@ -14,53 +13,36 @@ namespace PortfolioTracker.HistoryService.Consumers
         private readonly IMarketValueRepository marketValueRepository;
         private readonly ICashRepository cashRepository;
         private readonly IMarketValueCalculator mktValueCalculator;
+        private readonly ILogger logger;
 
-        public RunPortfolioValueAggregatorConsumer()
-        {
-
-        }
         public RunPortfolioValueAggregatorConsumer(
-            IPortfolioRepository portfolioRepository, 
             IMarketValueRepository marketValueRepository, 
-            ICashRepository cashRepository,
-            IMarketValueCalculator mktValueCalculator)
+            IMarketValueCalculator mktValueCalculator,
+            ILogger logger)
         {
-            this.portfolioRepository = portfolioRepository;
             this.marketValueRepository = marketValueRepository;
-            this.cashRepository = cashRepository;
             this.mktValueCalculator = mktValueCalculator;
+            this.logger = logger;
         }
 
         public async Task Consume(ConsumeContext<IRunPortfolioValueAggregator> context)
         {
-            switch (context.Message.Mode)
+            var startDate = context.Message.Date;
+
+            foreach (var portfolioId in context.Message.PortfolioIds)
             {
+                logger.Information($"Calculating portfolio value for {portfolioId}");
+
+                var marketValue = await mktValueCalculator.Calculate(portfolioId, startDate);
+
+                logger.Information($"Calculated portfolio value for {portfolioId}");
+
+                logger.Information($"Inserting market value for {portfolioId}");
+
+                await marketValueRepository.InsertAsync(marketValue);
                 
-                case PortfolioValueRunMode.SpecificPortfolios:
-                    var startDate = context.Message.Date;
-
-                    var cashValues = (await cashRepository.GetCashValueForDate(startDate)).ToLookup(c => Tuple.Create(c.PortfolioId, c.Date));
-
-                    foreach (var portfolioId in context.Message.PortfolioIds)
-                    {
-                        var portfolio = await portfolioRepository.GetSingleAsync(portfolioId);
-
-                        await InsertMarketValue(startDate, cashValues, portfolio);
-                    }
-                    return;
-
-                default:
-                    return;
+                logger.Information($"Done inserting market value for {portfolioId} for date {startDate}");
             }
-        }
-
-        private async Task InsertMarketValue(DateTime startDate, ILookup<Tuple<int, DateTime>, Cash> cashValues, Portfolio portfolio)
-        {
-            var cashValue = cashValues.Contains(Tuple.Create(portfolio.Id, startDate)) ? cashValues[Tuple.Create(portfolio.Id, startDate)].FirstOrDefault() : null;
-
-            var marketValue = await mktValueCalculator.Calculate(portfolio, cashValue, startDate);
-
-            await marketValueRepository.InsertAsync(marketValue);
         }
     }
 }

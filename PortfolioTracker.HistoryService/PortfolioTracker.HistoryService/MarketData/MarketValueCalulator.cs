@@ -11,19 +11,23 @@ namespace PortfolioTracker.HistoryService.MarketData
         private readonly ILogger logger;
         private readonly IMarketDataClient marketDataClient;
         private readonly ICashApiClient cashApi;
+        private readonly ILotApiClient lotsApi;
 
         public MarketValueCalulator(ILogger logger,
             IMarketDataClient marketDataClient,
-            ICashApiClient cashApi)
+            ICashApiClient cashApi, 
+            ILotApiClient lotsApi)
         {
             this.logger = logger;
             this.marketDataClient = marketDataClient;
             this.cashApi = cashApi;
+            this.lotsApi = lotsApi;
         }
 
         public async Task<MarketValue> Calculate(int portfolioId, DateTime asOf)
         {
-            var holdings = new List<Lot>();//portfolio.Holdings;
+            var holdings = await lotsApi.GetLotsForPortfolio(portfolioId, asOf);
+
             float cumMktValue = 0;
 
             foreach (var holding in holdings)
@@ -47,7 +51,6 @@ namespace PortfolioTracker.HistoryService.MarketData
                 MktValue = cumMktValue + cashValue.Amount,
                 PortfolioId = portfolioId
             };
-            
         }
     }
 }

@@ -113,6 +113,7 @@
     <Compile Include="Repository\ICashApiClient.cs" />
     <Compile Include="Repository\IDbEntity.cs" />
     <Compile Include="Repository\ILot.cs" />
+    <Compile Include="Repository\ILotApiClient.cs" />
     <Compile Include="Repository\MarketValue.cs" />
     <Compile Include="Repository\IPortfolio.cs" />
     <Compile Include="Repository\IRepository.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Repository\PortfolioRepository.cs" />
     <Compile Include="Service\ConfigureService.cs" />
     <Compile Include="Service\HistoryService.cs" />
+    <Compile Include="Util\JsonHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

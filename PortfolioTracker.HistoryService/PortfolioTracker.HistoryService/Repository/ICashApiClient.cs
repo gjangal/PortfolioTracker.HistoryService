@@ -24,7 +24,7 @@ namespace PortfolioTracker.HistoryService.Repository
 
         public CashApiClient(ILogger logger)
         {
-            this.baseUri = ConfigurationManager.AppSettings["CashUri"].ToString();
+            this.baseUri = ConfigurationManager.AppSettings["CashApi"].ToString();
             this.logger = logger;
             this.httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(baseUri);
@@ -33,11 +33,9 @@ namespace PortfolioTracker.HistoryService.Repository
 
         public async Task<ICash> GetCashForPortfolio(int portfolioId, DateTime asOf)
         {
-            string uri = $"api/Cash/{portfolioId}?asOf={asOf}";
+            string uri = $"api/Cash/Portfolio/{portfolioId}?asOf={asOf.Date}";
 
             logger.Information($"Query uri {uri}");
-
-            httpClient.BaseAddress = new Uri(uri);
             var response = await httpClient.GetAsync(uri);
             var json = await response.Content.ReadAsStringAsync();
 

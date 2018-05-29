@@ -31,7 +31,7 @@ namespace PortfolioTracker.HistoryService.Repository
         
         public async Task<IEnumerable<ILot>> GetLotsForPortfolio(int portfolioId, DateTime asOf)
         {
-            string uri = $"api/Lots/{portfolioId}?asOf={asOf}";
+            string uri = $"api/Lots/Portfolio/{portfolioId}?asOf={asOf}";
 
             var response = await httpClient.GetAsync(uri);
 

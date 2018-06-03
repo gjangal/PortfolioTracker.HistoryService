@@ -32,7 +32,7 @@ namespace TestPublisher
         }
     }
 
-    public class RunPortfolioValueAggregator : IRunPortfolioValueAggregator
+    public class RunPortfolioValueAggregator : IPortfolioValueAggregator
     {
         public PortfolioValueRunMode Mode { get =>  PortfolioValueRunMode.SpecificPortfolios; }
         public DateTime Date { get => DateTime.Today; }

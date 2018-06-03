@@ -3,6 +3,7 @@
     public enum PortfolioValueRunMode
     {
         AllPorfolios,
-        SpecificPortfolios
+        SpecificPortfolios,
+        Cash
     }
 }

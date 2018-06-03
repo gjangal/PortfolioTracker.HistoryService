@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace PortfolioTracker.Contracts.Events
 {
-    public interface IRunPortfolioValueAggregator
+    public interface IPortfolioValueAggregator
+    {
+        PortfolioValueRunMode Mode { get; }
+        DateTime Date { get; }
+        IEnumerable<int> PortfolioIds { get; }
+    }
+
+    public interface ICashValueAggregator
     {
         PortfolioValueRunMode Mode { get; }
         DateTime Date { get; }

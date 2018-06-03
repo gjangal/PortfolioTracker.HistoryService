@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PortfolioTracker.HistoryService.Consumers
 {
-    public class RunPortfolioValueAggregatorConsumer : IConsumer<IRunPortfolioValueAggregator>
+    public class PortfolioValueAggregatorConsumer : IConsumer<IPortfolioValueAggregator>
     {
         private readonly IPortfolioRepository portfolioRepository;
         private readonly IMarketValueRepository marketValueRepository;
@@ -15,7 +15,7 @@ namespace PortfolioTracker.HistoryService.Consumers
         private readonly IMarketValueCalculator mktValueCalculator;
         private readonly ILogger logger;
 
-        public RunPortfolioValueAggregatorConsumer(
+        public PortfolioValueAggregatorConsumer(
             IMarketValueRepository marketValueRepository, 
             IMarketValueCalculator mktValueCalculator,
             ILogger logger)
@@ -25,7 +25,7 @@ namespace PortfolioTracker.HistoryService.Consumers
             this.logger = logger;
         }
 
-        public async Task Consume(ConsumeContext<IRunPortfolioValueAggregator> context)
+        public async Task Consume(ConsumeContext<IPortfolioValueAggregator> context)
         {
             var startDate = context.Message.Date;
 

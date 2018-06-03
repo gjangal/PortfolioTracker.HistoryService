@@ -27,7 +27,7 @@ namespace PortfolioTracker.HistoryService.Service
             containerbuilder.RegisterType<CashApiClient>().As<ICashApiClient>();
 
             
-            containerbuilder.RegisterType<RunPortfolioValueAggregatorConsumer>().AsSelf();
+            containerbuilder.RegisterType<PortfolioValueAggregatorConsumer>().AsSelf();
             containerbuilder.RegisterLogger();
 
             var container = containerbuilder.Build();

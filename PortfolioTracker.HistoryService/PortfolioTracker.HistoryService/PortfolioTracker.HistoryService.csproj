@@ -95,7 +95,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Consumers\RunPortfolioValueAggregatorConsumer.cs" />
+    <Compile Include="Consumers\CashValueAggregatorConsumer.cs" />
+    <Compile Include="Consumers\PortfolioValueAggregatorConsumer.cs" />
     <Compile Include="MarketData\IMarketDataClient.cs" />
     <Compile Include="MarketData\IMarketValueCalculator.cs" />
     <Compile Include="MarketData\MarketValueCalulator.cs" />
@@ -105,11 +106,13 @@
     <Compile Include="Contracts\ICashWithDrawn.cs" />
     <Compile Include="Contracts\ILotAdded.cs" />
     <Compile Include="Contracts\ILotSold.cs" />
-    <Compile Include="Contracts\IRunPortfolioValueAggregator.cs" />
+    <Compile Include="Contracts\IPortfolioValueAggregator.cs" />
     <Compile Include="Contracts\PortfolioValueRunMode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CashRepository.cs" />
+    <Compile Include="Repository\CashValue.cs" />
+    <Compile Include="Repository\CashValueRepository.cs" />
     <Compile Include="Repository\ICashApiClient.cs" />
     <Compile Include="Repository\IDbEntity.cs" />
     <Compile Include="Repository\ILot.cs" />

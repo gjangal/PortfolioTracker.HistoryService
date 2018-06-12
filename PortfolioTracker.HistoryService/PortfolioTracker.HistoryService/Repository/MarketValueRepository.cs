@@ -55,9 +55,6 @@ namespace PortfolioTracker.HistoryService.Repository
             {
 
                 connection.Open();
-
-                var lookup = new Dictionary<int, Portfolio>();
-
                 var sql = $"SELECT Id, PortfolioId, MarketValue from dbo.MarketValue where Id={Id}";
                 var mktValue = await connection.QueryAsync<MarketValue>(sql);
 

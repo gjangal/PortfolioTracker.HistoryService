@@ -110,7 +110,6 @@
     <Compile Include="Contracts\PortfolioValueRunMode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\CashRepository.cs" />
     <Compile Include="Repository\CashValue.cs" />
     <Compile Include="Repository\CashValueRepository.cs" />
     <Compile Include="Repository\ICashApiClient.cs" />
@@ -118,12 +117,9 @@
     <Compile Include="Repository\ILot.cs" />
     <Compile Include="Repository\ILotApiClient.cs" />
     <Compile Include="Repository\MarketValue.cs" />
-    <Compile Include="Repository\IPortfolio.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\Lot.cs" />
     <Compile Include="Repository\MarketValueRepository.cs" />
-    <Compile Include="Repository\Portfolio.cs" />
-    <Compile Include="Repository\PortfolioRepository.cs" />
     <Compile Include="Service\ConfigureService.cs" />
     <Compile Include="Service\HistoryService.cs" />
     <Compile Include="Util\JsonHelper.cs" />

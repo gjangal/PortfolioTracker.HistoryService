@@ -9,9 +9,7 @@ namespace PortfolioTracker.HistoryService.Consumers
 {
     public class PortfolioValueAggregatorConsumer : IConsumer<IPortfolioValueAggregator>
     {
-        private readonly IPortfolioRepository portfolioRepository;
         private readonly IMarketValueRepository marketValueRepository;
-        private readonly ICashRepository cashRepository;
         private readonly IMarketValueCalculator mktValueCalculator;
         private readonly ILogger logger;
 

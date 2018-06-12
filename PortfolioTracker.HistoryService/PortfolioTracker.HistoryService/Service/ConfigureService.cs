@@ -18,8 +18,6 @@ namespace PortfolioTracker.HistoryService.Service
                 .WriteTo.Console().CreateLogger();
 
             var containerbuilder = new ContainerBuilder();
-            containerbuilder.RegisterType<CashRepository>().As<ICashRepository>();
-            containerbuilder.RegisterType<PortfolioRepository>().As<IPortfolioRepository>();
             containerbuilder.RegisterType<MarketValueRepository>().As<IMarketValueRepository>();
             containerbuilder.RegisterType<MarketValueCalulator>().As<IMarketValueCalculator>();
             containerbuilder.RegisterType<MarketDataClient>().As<IMarketDataClient>();

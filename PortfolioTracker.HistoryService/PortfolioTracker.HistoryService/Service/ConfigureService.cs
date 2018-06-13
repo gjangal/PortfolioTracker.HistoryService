@@ -19,6 +19,7 @@ namespace PortfolioTracker.HistoryService.Service
 
             var containerbuilder = new ContainerBuilder();
             containerbuilder.RegisterType<MarketValueRepository>().As<IMarketValueRepository>();
+            containerbuilder.RegisterType<CashValueRepository>().As<ICashValueRepository>();
             containerbuilder.RegisterType<MarketValueCalulator>().As<IMarketValueCalculator>();
             containerbuilder.RegisterType<MarketDataClient>().As<IMarketDataClient>();
             containerbuilder.RegisterType<LotApiClient>().As<ILotApiClient>();
@@ -26,6 +27,7 @@ namespace PortfolioTracker.HistoryService.Service
 
             
             containerbuilder.RegisterType<PortfolioValueAggregatorConsumer>().AsSelf();
+            containerbuilder.RegisterType<CashValueAggregatorConsumer>().AsSelf();
             containerbuilder.RegisterLogger();
 
             var container = containerbuilder.Build();

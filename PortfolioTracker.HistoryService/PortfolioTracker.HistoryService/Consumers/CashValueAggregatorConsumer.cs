@@ -36,7 +36,7 @@ namespace PortfolioTracker.HistoryService.Consumers
 
                 var cash = await cashApi.GetCashForPortfolio(portfolioId, startDate);
 
-                var rows = await cashHistoryRepo.InsertAsync(new CashValue() { Date = startDate, Cash = cash.Amount });
+                var rows = await cashHistoryRepo.InsertAsync(new CashValue() { Date = startDate, Cash = cash.Amount, PortfolioId=portfolioId });
             }
             
         }

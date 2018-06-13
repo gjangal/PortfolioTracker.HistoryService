@@ -11,7 +11,8 @@ namespace PortfolioTracker.HistoryService.Service
 {
     public class HistoryService
     {
-        private IBusControl bus;
+        private IBusControl portfolioValueBus;
+        private IBusControl cashValueBus;
         private IContainer container;
 
         public HistoryService(IContainer container)
@@ -21,16 +22,23 @@ namespace PortfolioTracker.HistoryService.Service
 
         public void Start()
         {
-            bus = Bus.Factory.CreateUsingRabbitMq(x => {
+            portfolioValueBus = Bus.Factory.CreateUsingRabbitMq(x => {
                 var host = x.Host(new Uri("rabbitmq://localhost"), h => { });
                 x.ReceiveEndpoint(host, "portfolio_mv_queue", e => e.Consumer(typeof(PortfolioValueAggregatorConsumer), type=>container.Resolve<PortfolioValueAggregatorConsumer>() ));
                 });
-            bus.Start();
+            portfolioValueBus.Start();
+
+            cashValueBus = Bus.Factory.CreateUsingRabbitMq(x => {
+                var host = x.Host(new Uri("rabbitmq://localhost"), h => { });
+                x.ReceiveEndpoint(host, "cash_mv_queue", e => e.Consumer(typeof(CashValueAggregatorConsumer), type => container.Resolve<CashValueAggregatorConsumer>()));
+            });
+            cashValueBus.Start();
         }
 
         public void Stop()
         {
-            bus.Stop();
+            portfolioValueBus.Stop();
+            cashValueBus.Stop();
         }
 
     }
